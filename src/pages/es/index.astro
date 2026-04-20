@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n';
+import { useTranslations } from '../../i18n';
+
+const lang: Lang = 'es';
+const t = useTranslations(lang);
+
+const posts = (await getCollection('posts'))
+  .filter((post) => post.data.lang === lang)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<Layout title={t('nav.home')} lang={lang}>
+  <section class="mb-10">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-3">
+      Hola, soy <span class="text-primary dark:text-blue-400">Vinicius</span> 👋
+    </h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+      Cloud Solution Architect en Microsoft. Escribo sobre Microsoft Teams, IA, automatización y cloud.
+    </p>
+  </section>
+
+  <section class="mb-8">
+    <div class="flex flex-wrap gap-2">
+      <span class="text-xs px-3 py-1.5 rounded-full bg-primary text-white cursor-pointer">
+        {t('filter.all')}
+      </span>
+      {allTags.map((tag) => (
+        <a
+          href={`/${lang}/tags/${tag}`}
+          class="text-xs px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white dark:hover:bg-blue-500 transition-colors cursor-pointer"
+        >
+          {tag}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {posts.map((post) => (
+      <PostCard
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        tags={post.data.tags}
+        slug={post.data.slug}
+        lang={lang}
+        image={post.data.image}
+      />
+    ))}
+  </section>
+
+  {posts.length === 0 && (
+    <p class="text-center text-slate-500 dark:text-slate-400 py-12">
+      Aún no hay posts. ¡Pronto! 🚀
+    </p>
+  )}
+</Layout>

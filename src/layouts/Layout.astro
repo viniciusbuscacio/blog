@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+import { languages, type Lang, useTranslations, getLocalizedPath } from '../i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Lang;
+  image?: string;
+}
+
+const { title, description = 'Blog técnico de Vinicius Buscacio', lang = 'pt', image } = Astro.props;
+const t = useTranslations(lang);
+const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {image && <meta property="og:image" content={image} />}
+    <title>{title} | Vinicius Buscacio</title>
+    <script is:inline>
+      if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+  </head>
+  <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors">
+    <!-- Header -->
+    <header class="border-b border-slate-200 dark:border-slate-700 sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-50">
+      <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href={getLocalizedPath('/', lang)} class="text-xl font-bold text-primary dark:text-blue-400 hover:opacity-80 transition">
+          Vinicius Buscacio
+        </a>
+        
+        <div class="flex items-center gap-6">
+          <div class="hidden sm:flex items-center gap-4 text-sm">
+            <a href={getLocalizedPath('/', lang)} class="hover:text-primary dark:hover:text-blue-400 transition">{t('nav.home')}</a>
+            <a href={getLocalizedPath('/about', lang)} class="hover:text-primary dark:hover:text-blue-400 transition">{t('nav.about')}</a>
+            <a href={getLocalizedPath('/tags', lang)} class="hover:text-primary dark:hover:text-blue-400 transition">{t('nav.tags')}</a>
+          </div>
+
+          <!-- Language Switcher -->
+          <div class="flex items-center gap-1 text-xs">
+            {Object.entries(languages).map(([code, name]) => (
+              <a
+                href={getLocalizedPath(currentPath, code as Lang)}
+                class:list={[
+                  'px-2 py-1 rounded transition',
+                  code === lang
+                    ? 'bg-primary text-white dark:bg-blue-500'
+                    : 'text-slate-500 hover:text-primary dark:hover:text-blue-400',
+                ]}
+              >
+                {code.toUpperCase()}
+              </a>
+            ))}
+          </div>
+
+          <!-- Theme Toggle -->
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            aria-label="Toggle dark mode"
+          >
+            <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="flex-1 max-w-6xl mx-auto px-4 py-8 w-full">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-700 py-6">
+      <div class="max-w-6xl mx-auto px-4 text-center text-sm text-slate-500 dark:text-slate-400">
+        <p>{t('footer.madeWith')} <a href="https://astro.build" class="text-primary dark:text-blue-400 hover:underline">Astro</a> {t('footer.by')}</p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    </script>
+  </body>
+</html>

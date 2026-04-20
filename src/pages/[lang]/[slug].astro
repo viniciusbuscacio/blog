@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import type { Lang } from '../../i18n';
+import { useTranslations, languages, getLocalizedPath } from '../../i18n';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { lang: post.data.lang, slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const lang = post.data.lang as Lang;
+const t = useTranslations(lang);
+const { Content } = await render(post);
+
+// Compute reading time
+const words = post.body ? post.body.split(/\s+/).length : 0;
+const readingTime = Math.max(1, Math.ceil(words / 200));
+
+const formattedDate = post.data.date.toLocaleDateString(
+  lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es-ES' : 'en-US',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+---
+
+<Layout title={post.data.title} description={post.data.description} lang={lang} image={post.data.image}>
+  <article class="max-w-3xl mx-auto">
+    <!-- Meta -->
+    <header class="mb-8">
+      <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+        <span>·</span>
+        <span>{readingTime} {t('post.minuteRead')}</span>
+      </div>
+      
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4 leading-tight">
+        {post.data.title}
+      </h1>
+      
+      <p class="text-lg text-slate-600 dark:text-slate-400">
+        {post.data.description}
+      </p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 mt-4">
+        {post.data.tags.map((tag: string) => (
+          <a
+            href={getLocalizedPath(`/tags/${tag}`, lang)}
+            class="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+
+      <!-- Translations -->
+      {post.data.translations && (
+        <div class="mt-4 text-sm text-slate-500 dark:text-slate-400">
+          {t('post.availableIn')}:
+          {Object.entries(post.data.translations)
+            .filter(([code]) => code !== lang)
+            .map(([code, slug]) => (
+              <a
+                href={getLocalizedPath(`/${slug}`, code as Lang)}
+                class="ml-2 text-primary dark:text-blue-400 hover:underline"
+              >
+                {languages[code as Lang]}
+              </a>
+            ))}
+        </div>
+      )}
+    </header>
+
+    {post.data.image && (
+      <img
+        src={post.data.image}
+        alt={post.data.title}
+        class="w-full rounded-xl mb-8"
+      />
+    )}
+
+    <!-- Content -->
+    <div class="prose prose-slate dark:prose-invert prose-lg max-w-none
+      prose-headings:font-bold prose-headings:tracking-tight
+      prose-a:text-primary dark:prose-a:text-blue-400
+      prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-pre:bg-slate-900 dark:prose-pre:bg-slate-950">
+      <Content />
+    </div>
+  </article>
+</Layout>
