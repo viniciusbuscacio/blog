@@ -22,7 +22,7 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
 });
 ---
 
-<article class="group rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:shadow-lg hover:border-primary/30 dark:hover:border-blue-500/30 transition-all duration-300 overflow-hidden">
+<article class="group rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:shadow-md transition-all duration-300 overflow-hidden">
   {image && (
     <a href={getLocalizedPath(`/${slug}`, lang)}>
       <img
@@ -34,17 +34,17 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
     </a>
   )}
   <div class="p-5">
-    <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-3">
+    <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-500 mb-3">
       <time datetime={date.toISOString()}>{formattedDate}</time>
     </div>
     
-    <h2 class="text-lg font-semibold mb-2 group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">
+    <h2 class="text-lg font-semibold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
       <a href={getLocalizedPath(`/${slug}`, lang)} class="line-clamp-2">
         {title}
       </a>
     </h2>
     
-    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
       {description}
     </p>
     
@@ -52,7 +52,7 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
       {tags.map((tag) => (
         <a
           href={getLocalizedPath(`/tags/${tag}`, lang)}
-          class="text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white dark:hover:bg-blue-500 transition-colors"
+          class="text-xs px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
         >
           {tag}
         </a>
