@@ -1,0 +1,74 @@
+---
+import type { Lang } from '../i18n';
+import { useTranslations } from '../i18n';
+
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  lang: Lang;
+  basePath: string;
+}
+
+const { currentPage, totalPages, lang, basePath } = Astro.props;
+const t = useTranslations(lang);
+
+function pageUrl(page: number) {
+  return page === 1 ? basePath : `${basePath}?page=${page}`;
+}
+
+// Generate page numbers to show
+const pages: (number | '...')[] = [];
+for (let i = 1; i <= totalPages; i++) {
+  if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+    pages.push(i);
+  } else if (pages[pages.length - 1] !== '...') {
+    pages.push('...');
+  }
+}
+---
+
+<nav class="flex items-center justify-center gap-2 mt-12 mb-4" aria-label="Pagination">
+  {currentPage > 1 ? (
+    <a
+      href={pageUrl(currentPage - 1)}
+      class="px-4 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
+    >
+      ← {t('pagination.prev')}
+    </a>
+  ) : (
+    <span class="px-4 py-2 text-sm rounded-lg border border-gray-100 dark:border-gray-900 text-gray-300 dark:text-gray-700 cursor-not-allowed">
+      ← {t('pagination.prev')}
+    </span>
+  )}
+
+  {pages.map((page) =>
+    page === '...' ? (
+      <span class="px-2 py-2 text-sm text-gray-400">…</span>
+    ) : (
+      <a
+        href={pageUrl(page)}
+        class:list={[
+          'px-3 py-2 text-sm rounded-lg transition',
+          page === currentPage
+            ? 'bg-black text-white dark:bg-white dark:text-black font-bold'
+            : 'border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900',
+        ]}
+      >
+        {page}
+      </a>
+    )
+  )}
+
+  {currentPage < totalPages ? (
+    <a
+      href={pageUrl(currentPage + 1)}
+      class="px-4 py-2 text-sm rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition"
+    >
+      {t('pagination.next')} →
+    </a>
+  ) : (
+    <span class="px-4 py-2 text-sm rounded-lg border border-gray-100 dark:border-gray-900 text-gray-300 dark:text-gray-700 cursor-not-allowed">
+      {t('pagination.next')} →
+    </span>
+  )}
+</nav>

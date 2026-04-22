@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PostCard from '../../components/PostCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import SearchBar from '../../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n';
 import { useTranslations } from '../../i18n';
@@ -8,15 +10,20 @@ import { useTranslations } from '../../i18n';
 const lang: Lang = 'es';
 const t = useTranslations(lang);
 
-const posts = (await getCollection('posts'))
+const allPosts = (await getCollection('posts'))
   .filter((post) => post.data.lang === lang)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
+
+const POSTS_PER_PAGE = 9;
+const currentPage = Number(Astro.url.searchParams.get('page') || '1');
+const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 ---
 
-<Layout title={t('nav.home')} lang={lang}>
-  <section class="mb-10">
+<Layout title={t('nav.home')} lang={lang} description="Blog técnico de Vinicius Buscacio — Cloud, IA, Microsoft Teams, automatización">
+  <section class="mb-8">
     <h1 class="text-3xl sm:text-4xl font-bold mb-3">
       Hola, soy <span class="text-black dark:text-white">Vinicius</span> 👋
     </h1>
@@ -25,39 +32,45 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
     </p>
   </section>
 
-  <section class="mb-8">
+  <SearchBar placeholder={t('search.placeholder')} lang={lang} />
+
+  <section class="mb-8" id="tag-filters">
     <div class="flex flex-wrap gap-2">
-      <span class="text-xs px-3 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black cursor-pointer">
-        {t('filter.all')}
-      </span>
+      <button class="tag-filter text-xs px-3 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black cursor-pointer transition-colors" data-tag="all">{t('filter.all')}</button>
       {allTags.map((tag) => (
-        <a
-          href={`/${lang}/tags/${tag}`}
-          class="text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
-        >
-          {tag}
-        </a>
+        <button class="tag-filter text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer" data-tag={tag}>{tag}</button>
       ))}
     </div>
   </section>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
     {posts.map((post) => (
-      <PostCard
-        title={post.data.title}
-        description={post.data.description}
-        date={post.data.date}
-        tags={post.data.tags}
-        slug={post.data.slug}
-        lang={lang}
-        image={post.data.image}
-      />
+      <div class="post-item" data-tags={post.data.tags.join(',')}>
+        <PostCard title={post.data.title} description={post.data.description} date={post.data.date} tags={post.data.tags} slug={post.data.slug} lang={lang} image={post.data.image} />
+      </div>
     ))}
   </section>
 
-  {posts.length === 0 && (
-    <p class="text-center text-gray-500 dark:text-gray-500 py-12">
-      Aún no hay posts. ¡Pronto! 🚀
-    </p>
-  )}
+  {posts.length === 0 && <p class="text-center text-gray-500 py-12">Aún no hay posts. ¡Pronto! 🚀</p>}
+  <p id="no-results" class="hidden text-center text-gray-500 py-12">No se encontraron posts.</p>
+
+  {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} lang={lang} basePath={`/${lang}`} />}
 </Layout>
+
+<script is:inline>
+  document.querySelectorAll('.tag-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.tag;
+      document.querySelectorAll('.tag-filter').forEach(b => {
+        b.className = b.className.replace(/bg-black text-white dark:bg-white dark:text-black/g, 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300');
+      });
+      btn.className = btn.className.replace(/bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300/g, 'bg-black text-white dark:bg-white dark:text-black');
+      const items = document.querySelectorAll('.post-item');
+      let visible = 0;
+      items.forEach(item => {
+        if (tag === 'all' || item.dataset.tags.split(',').includes(tag)) { item.style.display = ''; visible++; } else { item.style.display = 'none'; }
+      });
+      document.getElementById('no-results').classList.toggle('hidden', visible > 0);
+    });
+  });
+</script>

@@ -17,7 +17,6 @@ const lang = post.data.lang as Lang;
 const t = useTranslations(lang);
 const { Content } = await render(post);
 
-// Compute reading time
 const words = post.body ? post.body.split(/\s+/).length : 0;
 const readingTime = Math.max(1, Math.ceil(words / 200));
 
@@ -27,9 +26,16 @@ const formattedDate = post.data.date.toLocaleDateString(
 );
 ---
 
-<Layout title={post.data.title} description={post.data.description} lang={lang} image={post.data.image}>
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  lang={lang}
+  image={post.data.image}
+  type="article"
+  publishedDate={post.data.date}
+  tags={post.data.tags}
+>
   <article class="max-w-3xl mx-auto">
-    <!-- Meta -->
     <header class="mb-8">
       <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
         <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
@@ -45,7 +51,6 @@ const formattedDate = post.data.date.toLocaleDateString(
         {post.data.description}
       </p>
 
-      <!-- Tags -->
       <div class="flex flex-wrap gap-2 mt-4">
         {post.data.tags.map((tag: string) => (
           <a
@@ -57,7 +62,6 @@ const formattedDate = post.data.date.toLocaleDateString(
         ))}
       </div>
 
-      <!-- Translations -->
       {post.data.translations && (
         <div class="mt-4 text-sm text-slate-500 dark:text-slate-400">
           {t('post.availableIn')}:
@@ -83,7 +87,6 @@ const formattedDate = post.data.date.toLocaleDateString(
       />
     )}
 
-    <!-- Content -->
     <div class="prose prose-slate dark:prose-invert prose-lg max-w-none
       prose-headings:font-bold prose-headings:tracking-tight
       prose-a:text-primary dark:prose-a:text-blue-400
