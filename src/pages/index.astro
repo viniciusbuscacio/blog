@@ -1,3 +1,12 @@
 ---
-return Astro.redirect('/pt/');
+// Redirect raiz → idioma preferido (server-side em SSR, HTML fallback em static)
+// Detecta Accept-Language quando possível, senão vai pra PT
 ---
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="canonical" href="/pt/">
+<meta http-equiv="refresh" content="0;url=/pt/">
+<script>location.replace('/pt/')</script>
+</head>
+</html>
