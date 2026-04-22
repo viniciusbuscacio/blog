@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { languages, type Lang, useTranslations } from '../../i18n';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+
+const aboutText: Record<Lang, { title: string; content: string }> = {
+  pt: {
+    title: 'Sobre mim',
+    content: `Sou **Vinicius Buscacio**, Cloud Solution Architect na Microsoft Brasil.
+
+Trabalho com Microsoft Teams, IA aplicada e soluções cloud. Autor do livro [Microsoft Teams — Guia do Administrador](https://www.amazon.com.br/dp/B0GX2WMMFR), publicado em 3 idiomas na Amazon.
+
+Neste blog, compartilho conhecimento sobre tecnologia, automação, inteligência artificial e produtividade no mundo Microsoft.`,
+  },
+  en: {
+    title: 'About me',
+    content: `I'm **Vinicius Buscacio**, Cloud Solution Architect at Microsoft Brazil.
+
+I work with Microsoft Teams, applied AI, and cloud solutions. Author of [Microsoft Teams — Administrator's Guide](https://www.amazon.com.br/dp/B0GX321QLS), published in 3 languages on Amazon.
+
+In this blog, I share knowledge about technology, automation, artificial intelligence, and productivity in the Microsoft ecosystem.`,
+  },
+  es: {
+    title: 'Sobre mí',
+    content: `Soy **Vinicius Buscacio**, Cloud Solution Architect en Microsoft Brasil.
+
+Trabajo con Microsoft Teams, IA aplicada y soluciones cloud. Autor del libro [Microsoft Teams — Guía del Administrador](https://www.amazon.com.br/dp/B0GX32HWZ9), publicado en 3 idiomas en Amazon.
+
+En este blog, comparto conocimiento sobre tecnología, automatización, inteligencia artificial y productividad en el ecosistema Microsoft.`,
+  },
+};
+
+const about = aboutText[lang];
+---
+
+<Layout title={about.title} lang={lang}>
+  <section class="max-w-2xl">
+    <h1 class="text-3xl sm:text-4xl font-bold mb-6">{about.title}</h1>
+    <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+      {about.content.split('\n\n').map((paragraph) => (
+        <p set:html={paragraph
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener">$1</a>')}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>
