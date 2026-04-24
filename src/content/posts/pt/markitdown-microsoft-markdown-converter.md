@@ -8,6 +8,7 @@ slug: markitdown-microsoft-markdown-converter
 category: "IA & Ferramentas"
 translations:
   en: markitdown-microsoft-markdown-converter
+  es: markitdown-microsoft-markdown-converter
 ---
 
 Convertendo documentos para MD pra facilitar a vida do seu agente de IA

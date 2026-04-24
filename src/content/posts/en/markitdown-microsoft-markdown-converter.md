@@ -8,6 +8,7 @@ slug: markitdown-microsoft-markdown-converter
 category: "AI & Tools"
 translations:
   pt: markitdown-microsoft-markdown-converter
+  es: markitdown-microsoft-markdown-converter
 ---
 
 If you work with LLMs, you already know: **input format matters**. Language models understand Markdown far better than raw HTML, unstructured text extracted from PDFs, or binary spreadsheet formats.

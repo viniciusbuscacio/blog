@@ -8,6 +8,7 @@ slug: quem-ainda-inicia-um-blog-em-2026
 category: "Pessoal"
 translations:
   en: quem-ainda-inicia-um-blog-em-2026
+  es: quem-ainda-inicia-um-blog-em-2026
 ---
 
 Quem ainda inicia um blog de tecnologia em 2026?
