@@ -4,16 +4,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Light mode */
   --color-primary: #000000;
   --color-primary-dark: #1a1a1a;
   --color-accent: #3b82f6;
   --color-bg: #ffffff;
   --color-bg-card: #ffffff;
-  --color-bg-dark: #000000;
-  --color-bg-card-dark: #111111;
   --color-text: #111827;
-  --color-text-dark: #f3f4f6;
   --color-text-muted: #6b7280;
   --color-border: #e5e7eb;
-  --color-border-dark: #1f2937;
+
+  /* Dark mode — Catppuccin Mocha inspired */
+  --color-bg-dark: #1e1e2e;
+  --color-bg-card-dark: #313244;
+  --color-text-dark: #cdd6f4;
+  --color-border-dark: #45475a;
+  --color-gold: #f9e2af;
+  --color-teal: #94e2d5;
+  --color-surface0: #313244;
+  --color-surface1: #45475a;
+  --color-overlay0: #6c7086;
+  --color-subtext: #a6adc8;
+  --color-lavender: #b4befe;
 }
