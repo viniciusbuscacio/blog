@@ -3,6 +3,7 @@ title: "Who still starts a tech blog in 2026?"
 description: "I've had several blogs before. None lasted. But in 2026, with AI and modern tools, I decided to try again. Will it work this time?"
 date: 2026-04-24
 tags: ["blog", "ai", "personal", "cloud", "microsoft"]
+image: /images/posts/blog-2026.png
 lang: en
 slug: quem-ainda-inicia-um-blog-em-2026
 category: "Personal"
