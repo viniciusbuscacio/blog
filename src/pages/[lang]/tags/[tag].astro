@@ -1,0 +1,66 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { languages, type Lang, useTranslations, getLocalizedPath } from '../../../i18n';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const paths: { params: { lang: string; tag: string }; props: { posts: typeof posts } }[] = [];
+
+  for (const lang of Object.keys(languages)) {
+    const langPosts = posts.filter((p) => p.data.lang === lang);
+    const tags = new Set(langPosts.flatMap((p) => p.data.tags));
+
+    for (const tag of tags) {
+      const tagPosts = langPosts
+        .filter((p) => p.data.tags.includes(tag))
+        .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+      paths.push({ params: { lang, tag }, props: { posts: tagPosts } });
+    }
+  }
+
+  return paths;
+}
+
+const { lang, tag } = Astro.params as { lang: Lang; tag: string };
+const { posts } = Astro.props;
+const t = useTranslations(lang);
+
+const titles: Record<Lang, (tag: string, count: number) => string> = {
+  pt: (tag, count) => `${count} post${count > 1 ? 's' : ''} com a tag "${tag}"`,
+  en: (tag, count) => `${count} post${count > 1 ? 's' : ''} tagged "${tag}"`,
+  es: (tag, count) => `${count} post${count > 1 ? 's' : ''} con la tag "${tag}"`,
+};
+---
+
+<Layout title={`Tag: ${tag}`} lang={lang}>
+  <section>
+    <div class="mb-8">
+      <a
+        href={getLocalizedPath('/tags', lang)}
+        class="text-sm text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition"
+      >
+        ← {t('nav.tags')}
+      </a>
+    </div>
+
+    <h1 class="text-3xl sm:text-4xl font-bold mb-8">
+      {titles[lang](tag, posts.length)}
+    </h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map((post: any) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          slug={post.data.slug}
+          lang={lang}
+          image={post.data.image}
+        />
+      ))}
+    </div>
+  </section>
+</Layout>
