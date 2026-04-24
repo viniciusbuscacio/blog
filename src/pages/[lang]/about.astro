@@ -42,7 +42,7 @@ const about = aboutText[lang];
 <Layout title={about.title} lang={lang}>
   <section class="max-w-2xl">
     <h1 class="text-3xl sm:text-4xl font-bold mb-6">{about.title}</h1>
-    <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
+    <div class="prose prose-lg dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 leading-relaxed space-y-4">
       {about.content.split('\n\n').map((paragraph) => (
         <p set:html={paragraph
           .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')

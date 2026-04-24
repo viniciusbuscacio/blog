@@ -120,7 +120,7 @@ const GA_ID = 'G-M5LPZG24SP';
         
         <div class="flex items-center gap-6">
           <!-- Desktop nav -->
-          <div class="hidden sm:flex items-center gap-4 text-sm">
+          <div class="hidden sm:flex items-center gap-4 text-base">
             <a href={getLocalizedPath('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">{t('nav.home')}</a>
             <a href={getLocalizedPath('/about', lang)} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">{t('nav.about')}</a>
             <a href={getLocalizedPath('/tags', lang)} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">{t('nav.tags')}</a>
@@ -138,7 +138,7 @@ const GA_ID = 'G-M5LPZG24SP';
           </button>
 
           <!-- Language Switcher -->
-          <div class="flex items-center gap-1 text-xs">
+          <div class="flex items-center gap-1 text-sm">
             {Object.entries(languages).map(([code, name]) => (
               <a
                 href={getLocalizedPath(currentPath, code as Lang)}
@@ -172,7 +172,7 @@ const GA_ID = 'G-M5LPZG24SP';
 
       <!-- Mobile menu (hidden by default) -->
       <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-black/95 backdrop-blur-sm">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-3 text-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-3 text-base">
           <a href={getLocalizedPath('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition py-1">{t('nav.home')}</a>
           <a href={getLocalizedPath('/about', lang)} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition py-1">{t('nav.about')}</a>
           <a href={getLocalizedPath('/tags', lang)} class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition py-1">{t('nav.tags')}</a>
@@ -187,7 +187,7 @@ const GA_ID = 'G-M5LPZG24SP';
 
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-gray-800 py-6">
-      <div class="max-w-5xl mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-500 space-y-2">
+      <div class="max-w-5xl mx-auto px-4 text-center text-base text-gray-500 dark:text-gray-500 space-y-2">
         <div class="flex justify-center gap-4">
           <a href={getLocalizedPath('/about', lang)} class="hover:text-black dark:hover:text-white transition">{t('nav.about')}</a>
           <span>·</span>

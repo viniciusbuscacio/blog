@@ -26,10 +26,10 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
 <Layout title={t('nav.home')} lang={lang} description="Blog técnico de Vinicius Buscacio — Cloud, IA, Microsoft Teams, automação">
   <!-- Hero -->
   <section class="mb-8">
-    <h1 class="text-3xl sm:text-4xl font-bold mb-3">
+    <h1 class="text-4xl sm:text-5xl font-bold mb-4">
       Olá, eu sou o <span class="text-black dark:text-white">Vinicius</span>
     </h1>
-    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
       Cloud Solution Architect na Microsoft. Escrevo sobre Microsoft Teams, IA, tecnologia e o que der na telha.
     </p>
   </section>
@@ -41,14 +41,14 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
   <section class="mb-8" id="tag-filters">
     <div class="flex flex-wrap gap-2">
       <button
-        class="tag-filter text-xs px-3 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black cursor-pointer transition-colors"
+        class="tag-filter text-sm px-3 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black cursor-pointer transition-colors"
         data-tag="all"
       >
         {t('filter.all')}
       </button>
       {allTags.map((tag) => (
         <button
-          class="tag-filter text-xs px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+          class="tag-filter text-sm px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
           data-tag={tag}
         >
           {tag}
