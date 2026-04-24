@@ -1,6 +1,6 @@
 ---
 title: "Who still starts a tech blog in 2026?"
-description: "I've had several blogs before. None lasted. But in 2026, with AI and modern tools, I decided to try again — and this time the process of creating was as fun as writing."
+description: "I've had several blogs before. None lasted. But in 2026, with AI and modern tools, I decided to try again. Will it work this time?"
 date: 2026-04-24
 tags: ["blog", "ai", "personal", "cloud", "microsoft"]
 lang: en
