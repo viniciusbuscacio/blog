@@ -3,6 +3,7 @@ title: "Convertendo documentos para MD pra facilitar a vida do seu agente de IA"
 description: "Testei o MarkItDown — biblioteca open-source da Microsoft que converte PDF, Word, Excel, PowerPoint, HTML e até URLs em Markdown limpo. Ideal para pipelines de IA."
 date: 2026-04-24
 tags: ["microsoft", "ai", "python", "open-source", "llm", "markdown"]
+image: /images/posts/markitdown-github.png
 lang: pt
 slug: markitdown-microsoft-markdown-converter
 category: "IA & Ferramentas"
