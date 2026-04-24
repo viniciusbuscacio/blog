@@ -44,15 +44,15 @@ const emptyMessages: Record<Lang, string> = {
         {sortedTags.map(([tag, count]) => (
           <a
             href={`/${lang}/tags/${tag}`}
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-surface1 text-gray-700 dark:text-subtext hover:bg-gray-200 dark:hover:bg-overlay0 transition-colors"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gh-surface text-gray-700 dark:text-gh-muted hover:bg-gray-200 dark:hover:bg-gh-surface transition-colors"
           >
             <span>{tag}</span>
-            <span class="text-xs bg-gray-200 dark:bg-overlay0 px-2 py-0.5 rounded-full">{count}</span>
+            <span class="text-xs bg-gray-200 dark:bg-gh-surface px-2 py-0.5 rounded-full">{count}</span>
           </a>
         ))}
       </div>
     ) : (
-      <p class="text-center text-gray-500 dark:text-overlay0 py-12">
+      <p class="text-center text-gray-500 dark:text-gh-muted py-12">
         {emptyMessages[lang]}
       </p>
     )}

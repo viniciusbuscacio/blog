@@ -37,7 +37,7 @@ const formattedDate = post.data.date.toLocaleDateString(
 >
   <article class="max-w-3xl mx-auto">
     <header class="mb-8">
-      <div class="flex items-center gap-3 text-base text-slate-500 dark:text-overlay0 mb-4">
+      <div class="flex items-center gap-3 text-base text-slate-500 dark:text-gh-muted mb-4">
         <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
         <span>·</span>
         <span>{readingTime} {t('post.minuteRead')}</span>
@@ -47,7 +47,7 @@ const formattedDate = post.data.date.toLocaleDateString(
         {post.data.title}
       </h1>
       
-      <p class="text-lg text-slate-600 dark:text-subtext">
+      <p class="text-lg text-slate-600 dark:text-gh-muted">
         {post.data.description}
       </p>
 
@@ -55,7 +55,7 @@ const formattedDate = post.data.date.toLocaleDateString(
         {post.data.tags.map((tag: string) => (
           <a
             href={getLocalizedPath(`/tags/${tag}`, lang)}
-            class="text-sm px-2.5 py-1 rounded-full bg-slate-100 dark:bg-surface1 text-slate-600 dark:text-subtext hover:bg-primary hover:text-white transition-colors"
+            class="text-sm px-2.5 py-1 rounded-full bg-slate-100 dark:bg-gh-surface text-slate-600 dark:text-gh-muted hover:bg-primary hover:text-white transition-colors"
           >
             {tag}
           </a>
@@ -63,14 +63,14 @@ const formattedDate = post.data.date.toLocaleDateString(
       </div>
 
       {post.data.translations && (
-        <div class="mt-4 text-base text-slate-500 dark:text-overlay0">
+        <div class="mt-4 text-base text-slate-500 dark:text-gh-muted">
           {t('post.availableIn')}:
           {Object.entries(post.data.translations)
             .filter(([code]) => code !== lang)
             .map(([code, slug]) => (
               <a
                 href={getLocalizedPath(`/${slug}`, code as Lang)}
-                class="ml-2 text-primary dark:text-teal hover:underline"
+                class="ml-2 text-primary dark:text-gh-blue hover:underline"
               >
                 {languages[code as Lang]}
               </a>
@@ -90,9 +90,9 @@ const formattedDate = post.data.date.toLocaleDateString(
     <div class="prose prose-slate dark:prose-invert prose-xl max-w-none
       prose-headings:font-bold prose-headings:tracking-tight prose-headings:mt-10 prose-headings:mb-4
       prose-p:mb-6 prose-p:leading-relaxed
-      prose-a:text-primary dark:prose-a:text-teal
-      prose-code:bg-slate-100 dark:prose-code:bg-surface1 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-      prose-pre:bg-slate-900 dark:prose-pre:bg-[#181825]">
+      prose-a:text-primary dark:prose-a:text-gh-blue
+      prose-code:bg-slate-100 dark:prose-code:bg-gh-surface prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+      prose-pre:bg-slate-900 dark:prose-pre:bg-[#161b22]">
       <Content />
     </div>
   </article>

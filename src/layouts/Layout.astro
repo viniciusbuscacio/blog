@@ -112,24 +112,24 @@ const GA_ID = 'G-M5LPZG24SP';
   </head>
   <body class="bg-white dark:bg-bg-dark text-gray-900 dark:text-text-dark min-h-screen flex flex-col transition-colors">
     <!-- Header -->
-    <header class="border-b border-gray-200 dark:border-surface1 sticky top-0 bg-white/80 dark:bg-bg-dark/80 backdrop-blur-sm z-50">
+    <header class="border-b border-gray-200 dark:border-border-dark sticky top-0 bg-white/80 dark:bg-bg-dark/80 backdrop-blur-sm z-50">
       <nav class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href={getLocalizedPath('/', lang)} class="text-xl font-bold text-black dark:text-gold hover:opacity-80 transition">
+        <a href={getLocalizedPath('/', lang)} class="text-xl font-bold text-black dark:text-gh-blue hover:opacity-80 transition">
           viniciusbuscacio.blog
         </a>
         
         <div class="flex items-center gap-6">
           <!-- Desktop nav -->
           <div class="hidden sm:flex items-center gap-4 text-base">
-            <a href={getLocalizedPath('/', lang)} class="text-gray-600 dark:text-subtext hover:text-black dark:hover:text-text-dark transition">{t('nav.home')}</a>
-            <a href={getLocalizedPath('/about', lang)} class="text-gray-600 dark:text-subtext hover:text-black dark:hover:text-text-dark transition">{t('nav.about')}</a>
-            <a href={getLocalizedPath('/tags', lang)} class="text-gray-600 dark:text-subtext hover:text-black dark:hover:text-text-dark transition">{t('nav.tags')}</a>
+            <a href={getLocalizedPath('/', lang)} class="text-gray-600 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition">{t('nav.home')}</a>
+            <a href={getLocalizedPath('/about', lang)} class="text-gray-600 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition">{t('nav.about')}</a>
+            <a href={getLocalizedPath('/tags', lang)} class="text-gray-600 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition">{t('nav.tags')}</a>
           </div>
 
           <!-- Mobile hamburger -->
           <button
             id="mobile-menu-btn"
-            class="sm:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-surface0 transition"
+            class="sm:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gh-surface transition"
             aria-label="Menu"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ const GA_ID = 'G-M5LPZG24SP';
                 class:list={[
                   'px-2 py-1 rounded transition',
                   code === lang
-                    ? 'bg-black text-white dark:bg-gold dark:text-bg-dark'
+                    ? 'bg-black text-white dark:bg-gh-blue dark:text-bg-dark'
                     : 'text-gray-500 hover:text-black dark:hover:text-text-dark',
                 ]}
               >
@@ -157,7 +157,7 @@ const GA_ID = 'G-M5LPZG24SP';
           <!-- Theme Toggle -->
           <button
             id="theme-toggle"
-            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-surface0 transition"
+            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gh-surface transition"
             aria-label="Toggle dark mode"
           >
             <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
@@ -171,11 +171,11 @@ const GA_ID = 'G-M5LPZG24SP';
       </nav>
 
       <!-- Mobile menu (hidden by default) -->
-      <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200 dark:border-surface1 bg-white/95 dark:bg-bg-dark/95 backdrop-blur-sm">
+      <div id="mobile-menu" class="hidden sm:hidden border-t border-gray-200 dark:border-border-dark bg-white/95 dark:bg-bg-dark/95 backdrop-blur-sm">
         <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-3 text-base">
-          <a href={getLocalizedPath('/', lang)} class="text-gray-600 dark:text-subtext hover:text-black dark:hover:text-text-dark transition py-1">{t('nav.home')}</a>
-          <a href={getLocalizedPath('/about', lang)} class="text-gray-600 dark:text-subtext hover:text-black dark:hover:text-text-dark transition py-1">{t('nav.about')}</a>
-          <a href={getLocalizedPath('/tags', lang)} class="text-gray-600 dark:text-subtext hover:text-black dark:hover:text-text-dark transition py-1">{t('nav.tags')}</a>
+          <a href={getLocalizedPath('/', lang)} class="text-gray-600 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition py-1">{t('nav.home')}</a>
+          <a href={getLocalizedPath('/about', lang)} class="text-gray-600 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition py-1">{t('nav.about')}</a>
+          <a href={getLocalizedPath('/tags', lang)} class="text-gray-600 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition py-1">{t('nav.tags')}</a>
         </div>
       </div>
     </header>
@@ -186,8 +186,8 @@ const GA_ID = 'G-M5LPZG24SP';
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-surface1 py-6">
-      <div class="max-w-5xl mx-auto px-4 text-center text-base text-gray-500 dark:text-overlay0 space-y-2">
+    <footer class="border-t border-gray-200 dark:border-border-dark py-6">
+      <div class="max-w-5xl mx-auto px-4 text-center text-base text-gray-500 dark:text-gh-muted space-y-2">
         <div class="flex justify-center gap-4">
           <a href={getLocalizedPath('/about', lang)} class="hover:text-black dark:hover:text-text-dark transition">{t('nav.about')}</a>
           <span>·</span>
@@ -195,7 +195,7 @@ const GA_ID = 'G-M5LPZG24SP';
           <span>·</span>
           <a href="https://www.linkedin.com/in/viniciusbuscacio" class="hover:text-black dark:hover:text-text-dark transition" target="_blank" rel="noopener">LinkedIn</a>
         </div>
-        <p>{t('footer.madeWith')} <a href="https://astro.build" class="text-black dark:text-teal hover:underline">Astro</a> {t('footer.by')}</p>
+        <p>{t('footer.madeWith')} <a href="https://astro.build" class="text-black dark:text-gh-blue hover:underline">Astro</a> {t('footer.by')}</p>
       </div>
     </footer>
 

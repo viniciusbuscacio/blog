@@ -14,16 +14,13 @@
   --color-text-muted: #6b7280;
   --color-border: #e5e7eb;
 
-  /* Dark mode — Catppuccin Mocha inspired */
-  --color-bg-dark: #1e1e2e;
-  --color-bg-card-dark: #313244;
-  --color-text-dark: #cdd6f4;
-  --color-border-dark: #45475a;
-  --color-gold: #f9e2af;
-  --color-teal: #94e2d5;
-  --color-surface0: #313244;
-  --color-surface1: #45475a;
-  --color-overlay0: #6c7086;
-  --color-subtext: #a6adc8;
-  --color-lavender: #b4befe;
+  /* Dark mode — GitHub Dark */
+  --color-bg-dark: #0d1117;
+  --color-bg-card-dark: #161b22;
+  --color-text-dark: #e6edf3;
+  --color-border-dark: #30363d;
+  --color-gh-blue: #58a6ff;
+  --color-gh-muted: #8b949e;
+  --color-gh-subtle: #6e7681;
+  --color-gh-surface: #21262d;
 }

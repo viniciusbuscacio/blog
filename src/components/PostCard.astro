@@ -22,7 +22,7 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
 });
 ---
 
-<article class="group rounded-lg border border-gray-200 dark:border-surface1 bg-white dark:bg-surface0 hover:shadow-md transition-all duration-300 overflow-hidden">
+<article class="group rounded-lg border border-gray-200 dark:border-border-dark bg-white dark:bg-bg-card-dark hover:shadow-md transition-all duration-300 overflow-hidden">
   {image && (
     <a href={getLocalizedPath(`/${slug}`, lang)}>
       <img
@@ -34,17 +34,17 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
     </a>
   )}
   <div class="p-5">
-    <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-overlay0 mb-3">
+    <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gh-muted mb-3">
       <time datetime={date.toISOString()}>{formattedDate}</time>
     </div>
     
-    <h2 class="text-xl font-semibold mb-2 group-hover:text-gray-600 dark:group-hover:text-gold transition-colors">
+    <h2 class="text-xl font-semibold mb-2 group-hover:text-gray-600 dark:group-hover:text-gh-blue transition-colors">
       <a href={getLocalizedPath(`/${slug}`, lang)} class="line-clamp-2">
         {title}
       </a>
     </h2>
     
-    <p class="text-base text-gray-600 dark:text-subtext mb-4 line-clamp-3">
+    <p class="text-base text-gray-600 dark:text-gh-muted mb-4 line-clamp-3">
       {description}
     </p>
     
@@ -52,7 +52,7 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
       {tags.map((tag) => (
         <a
           href={getLocalizedPath(`/tags/${tag}`, lang)}
-          class="text-sm px-2.5 py-1 rounded-md bg-gray-100 dark:bg-surface1 text-gray-700 dark:text-subtext hover:bg-gray-200 dark:hover:bg-overlay0 transition-colors"
+          class="text-sm px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gh-surface text-gray-700 dark:text-gh-muted hover:bg-gray-200 dark:hover:bg-gh-surface transition-colors"
         >
           {tag}
         </a>

@@ -29,7 +29,7 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
     <h1 class="text-4xl sm:text-5xl font-bold mb-4">
       Olá, eu sou o <span class="text-black dark:text-white">Vinicius</span>
     </h1>
-    <p class="text-xl text-gray-600 dark:text-subtext max-w-2xl leading-relaxed">
+    <p class="text-xl text-gray-600 dark:text-gh-muted max-w-2xl leading-relaxed">
       Cloud Solution Architect na Microsoft. Escrevo sobre Microsoft Teams, IA, tecnologia e o que der na telha.
     </p>
   </section>
@@ -41,14 +41,14 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
   <section class="mb-8" id="tag-filters">
     <div class="flex flex-wrap gap-2">
       <button
-        class="tag-filter text-sm px-3 py-1.5 rounded-full bg-black text-white dark:bg-gold dark:text-bg-dark cursor-pointer transition-colors"
+        class="tag-filter text-sm px-3 py-1.5 rounded-full bg-black text-white dark:bg-gh-blue dark:text-bg-dark cursor-pointer transition-colors"
         data-tag="all"
       >
         {t('filter.all')}
       </button>
       {allTags.map((tag) => (
         <button
-          class="tag-filter text-sm px-3 py-1.5 rounded-full bg-gray-100 dark:bg-surface1 text-gray-700 dark:text-subtext hover:bg-gray-200 dark:hover:bg-overlay0 transition-colors cursor-pointer"
+          class="tag-filter text-sm px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gh-surface text-gray-700 dark:text-gh-muted hover:bg-gray-200 dark:hover:bg-gh-surface transition-colors cursor-pointer"
           data-tag={tag}
         >
           {tag}
@@ -75,13 +75,13 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
   </section>
 
   {posts.length === 0 && (
-    <p class="text-center text-gray-500 dark:text-overlay0 py-12">
+    <p class="text-center text-gray-500 dark:text-gh-muted py-12">
       Nenhum post ainda. Em breve! 🚀
     </p>
   )}
 
   <!-- No results message (hidden by default) -->
-  <p id="no-results" class="hidden text-center text-gray-500 dark:text-overlay0 py-12">
+  <p id="no-results" class="hidden text-center text-gray-500 dark:text-gh-muted py-12">
     Nenhum post encontrado.
   </p>
 
@@ -98,9 +98,9 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
       const tag = btn.dataset.tag;
       // Update active state
       document.querySelectorAll('.tag-filter').forEach(b => {
-        b.className = b.className.replace(/bg-black text-white dark:bg-gold dark:text-bg-dark/g, 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300');
+        b.className = b.className.replace(/bg-black text-white dark:bg-gh-blue dark:text-bg-dark/g, 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300');
       });
-      btn.className = btn.className.replace(/bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300/g, 'bg-black text-white dark:bg-gold dark:text-bg-dark');
+      btn.className = btn.className.replace(/bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300/g, 'bg-black text-white dark:bg-gh-blue dark:text-bg-dark');
       
       // Filter posts
       const items = document.querySelectorAll('.post-item');
