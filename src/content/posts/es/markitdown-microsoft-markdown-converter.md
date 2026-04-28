@@ -12,8 +12,6 @@ translations:
   pt: markitdown-microsoft-markdown-converter
 ---
 
-Convirtiendo documentos a MD para facilitarle la vida a tu agente de IA
-
 Si estás trabajando con tu agente de IA, probablemente ya descubriste que las LLMs prefieren el formato .MD para consumir y editar información. Sin embargo, en el mundo real, los humanos trabajamos con archivos tipo PDF, DOCX, XLSX, etc.
 
 Obviamente, ya existen varias bibliotecas que realizan la conversión de este tipo de documentos al formato MD. Pero te invito a probar **MarkItDown**.

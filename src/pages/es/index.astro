@@ -25,7 +25,7 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
 <Layout title={t('nav.home')} lang={lang} description="Blog técnico de Vinicius Buscacio — Cloud, IA, Microsoft Teams, automatización">
   <section class="mb-8">
     <h1 class="text-4xl sm:text-5xl font-bold mb-4">
-      Hola, soy <span class="text-black dark:text-white">Vinicius</span>
+      Hola, soy <span class="hero-name">Vinicius</span>
     </h1>
     <p class="text-xl text-gray-600 dark:text-gh-muted max-w-2xl leading-relaxed">
       Cloud Solution Architect en Microsoft. Escribo sobre Microsoft Teams, IA, tecnología y lo que se me ocurra.
@@ -58,13 +58,19 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
 </Layout>
 
 <script is:inline>
+  const ACTIVE_CLASSES = ['bg-black', 'text-white', 'dark:bg-gh-blue', 'dark:text-bg-dark'];
+  const INACTIVE_CLASSES = ['bg-gray-100', 'dark:bg-gh-surface', 'text-gray-700', 'dark:text-gh-muted'];
+  const HOVER_CLASSES = ['hover:bg-gray-200', 'dark:hover:bg-gh-surface'];
+
   document.querySelectorAll('.tag-filter').forEach(btn => {
     btn.addEventListener('click', () => {
       const tag = btn.dataset.tag;
       document.querySelectorAll('.tag-filter').forEach(b => {
-        b.className = b.className.replace(/bg-black text-white dark:bg-gh-blue dark:text-bg-dark/g, 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300');
+        b.classList.remove(...ACTIVE_CLASSES);
+        b.classList.add(...INACTIVE_CLASSES, ...HOVER_CLASSES);
       });
-      btn.className = btn.className.replace(/bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300/g, 'bg-black text-white dark:bg-gh-blue dark:text-bg-dark');
+      btn.classList.remove(...INACTIVE_CLASSES, ...HOVER_CLASSES);
+      btn.classList.add(...ACTIVE_CLASSES);
       const items = document.querySelectorAll('.post-item');
       let visible = 0;
       items.forEach(item => {

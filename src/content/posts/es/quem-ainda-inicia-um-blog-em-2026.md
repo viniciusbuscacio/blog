@@ -49,7 +49,7 @@ Prometo opiniones 100% parciales y sesgadas sobre el mercado de cloud e IA.
 
 ¿Sinceramente? No lo sé. Pero lo que puedo decir es que esta vez el costo de mantenerlo es cero, el deploy es automático, y tengo un agente de IA que me reclama si dejo de escribir.
 
-Bienvenidos a `viniciusbuscacio.blog`. Espero que se queden por aquí.
+Bienvenidos a viniciusbuscacio.blog. Espero que se queden por aquí.
 
 **Links:**
 - [GitHub](https://github.com/viniciusbuscacio)

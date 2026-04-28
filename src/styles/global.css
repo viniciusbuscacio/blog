@@ -24,3 +24,40 @@
   --color-gh-subtle: #6e7681;
   --color-gh-surface: #21262d;
 }
+
+/* ===== Blog Design Lab — Custom overrides ===== */
+
+/* Logo branco no dark mode (era azul gh-blue) */
+.dark .logo-brand { color: #fff !important; }
+.dark .logo-brand:hover { opacity: 0.85; }
+
+/* Accent gradient no nome "Vinicius" no hero */
+.hero-name {
+  background: linear-gradient(135deg, #58a6ff 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .hero-name {
+  background: linear-gradient(135deg, #79c0ff 0%, #c4b5fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Footer compacto — 1 linha */
+.footer-compact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.footer-compact .sep { opacity: 0.3; }
+
+/* Fix: code inside pre blocks should NOT have inline-code styling */
+.prose pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}

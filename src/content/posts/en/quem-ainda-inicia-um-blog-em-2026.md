@@ -49,7 +49,7 @@ I promise 100% biased and opinionated takes on the cloud and AI market.
 
 Honestly? I don't know. But what I can say is that this time the cost to maintain is zero, deploys are automatic, and I have an AI agent that will hold me accountable if I stop writing.
 
-Welcome to `viniciusbuscacio.blog`. I hope you stick around.
+Welcome to viniciusbuscacio.blog. I hope you stick around.
 
 **Links:**
 - [GitHub](https://github.com/viniciusbuscacio)
