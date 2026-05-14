@@ -16,7 +16,6 @@ const allPosts = (await getCollection('posts'))
 
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 
-// Pagination
 const POSTS_PER_PAGE = 9;
 const currentPage = Number(Astro.url.searchParams.get('page') || '1');
 const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
@@ -24,41 +23,21 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
 ---
 
 <Layout title={t('nav.home')} lang={lang} description="Blog técnico de Vinicius Buscacio — Cloud, IA, Microsoft Teams, automação">
-  <!-- Hero -->
-  <section class="mb-8">
-    <h1 class="text-4xl sm:text-5xl font-bold mb-4">
-      Olá, eu sou o <span class="hero-name">Vinicius</span>
-    </h1>
-    <p class="text-xl text-gray-600 dark:text-gh-muted max-w-2xl leading-relaxed">
-      Cloud Solution Architect na Microsoft. Escrevo sobre Microsoft Teams, IA, tecnologia e o que der na telha.
-    </p>
+  <section class="hero">
+    <h1 set:html={`Olá, eu sou o <em>Vinicius</em>`} />
+    <p>Cloud Solution Architect na Microsoft. Escrevo sobre Microsoft Teams, IA, tecnologia e o que der na telha.</p>
   </section>
 
-  <!-- Search -->
   <SearchBar placeholder={t('search.placeholder')} lang={lang} />
 
-  <!-- Tags filter -->
-  <section class="mb-8" id="tag-filters">
-    <div class="flex flex-wrap gap-2">
-      <button
-        class="tag-filter text-sm px-3 py-1.5 rounded-full bg-black text-white dark:bg-gh-blue dark:text-bg-dark cursor-pointer transition-colors"
-        data-tag="all"
-      >
-        {t('filter.all')}
-      </button>
-      {allTags.map((tag) => (
-        <button
-          class="tag-filter text-sm px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gh-surface text-gray-700 dark:text-gh-muted hover:bg-gray-200 dark:hover:bg-gh-surface transition-colors cursor-pointer"
-          data-tag={tag}
-        >
-          {tag}
-        </button>
-      ))}
-    </div>
+  <section class="tag-row" id="tag-filters">
+    <button class="tag-filter is-active" data-tag="all">{t('filter.all')}</button>
+    {allTags.map((tag) => (
+      <button class="tag-filter" data-tag={tag}>{tag}</button>
+    ))}
   </section>
 
-  <!-- Posts Grid -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
+  <section class="post-grid" id="posts-grid">
     {posts.map((post) => (
       <div class="post-item" data-tags={post.data.tags.join(',')}>
         <PostCard
@@ -74,41 +53,26 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
     ))}
   </section>
 
-  {posts.length === 0 && (
-    <p class="text-center text-gray-500 dark:text-gh-muted py-12">
-      Nenhum post ainda. Em breve! 🚀
-    </p>
-  )}
+  {posts.length === 0 && <p class="no-results">Nenhum post ainda. Em breve! 🚀</p>}
+  <p id="no-results" class="no-results hidden">Nenhum post encontrado.</p>
 
-  <!-- No results message (hidden by default) -->
-  <p id="no-results" class="hidden text-center text-gray-500 dark:text-gh-muted py-12">
-    Nenhum post encontrado.
-  </p>
-
-  <!-- Pagination -->
   {totalPages > 1 && (
     <Pagination currentPage={currentPage} totalPages={totalPages} lang={lang} basePath={`/${lang}`} />
   )}
 </Layout>
 
 <script is:inline>
-  // Tag filtering (client-side)
-  const ACTIVE_CLASSES = ['bg-black', 'text-white', 'dark:bg-gh-blue', 'dark:text-bg-dark'];
-  const INACTIVE_CLASSES = ['bg-gray-100', 'dark:bg-gh-surface', 'text-gray-700', 'dark:text-gh-muted'];
-  const HOVER_CLASSES = ['hover:bg-gray-200', 'dark:hover:bg-gh-surface'];
-
   document.querySelectorAll('.tag-filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      const tag = btn.dataset.tag;
-      // Update active state
-      document.querySelectorAll('.tag-filter').forEach(b => {
-        b.classList.remove(...ACTIVE_CLASSES);
-        b.classList.add(...INACTIVE_CLASSES, ...HOVER_CLASSES);
-      });
-      btn.classList.remove(...INACTIVE_CLASSES, ...HOVER_CLASSES);
-      btn.classList.add(...ACTIVE_CLASSES);
+      const allButton = document.querySelector('.tag-filter[data-tag="all"]');
+      const wasActive = btn.classList.contains('is-active');
+      const clickedTag = btn.dataset.tag;
+      const tag = clickedTag !== 'all' && wasActive ? 'all' : clickedTag;
+      const activeButton = tag === 'all' ? allButton : btn;
 
-      // Filter posts
+      document.querySelectorAll('.tag-filter').forEach(b => b.classList.remove('is-active'));
+      activeButton?.classList.add('is-active');
+
       const items = document.querySelectorAll('.post-item');
       let visible = 0;
       items.forEach(item => {

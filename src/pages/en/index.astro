@@ -23,59 +23,67 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
 ---
 
 <Layout title={t('nav.home')} lang={lang} description="Tech blog by Vinicius Buscacio — Cloud, AI, Microsoft Teams, automation">
-  <section class="mb-8">
-    <h1 class="text-4xl sm:text-5xl font-bold mb-4">
-      Hi, I'm <span class="hero-name">Vinicius</span>
-    </h1>
-    <p class="text-xl text-gray-600 dark:text-gh-muted max-w-2xl leading-relaxed">
-      Cloud Solution Architect at Microsoft. I write about Microsoft Teams, AI, tech and whatever comes to mind.
-    </p>
+  <section class="hero">
+    <h1 set:html={`Hi, I'm <em>Vinicius</em>`} />
+    <p>Cloud Solution Architect at Microsoft. I write about Microsoft Teams, AI, tech and whatever comes to mind.</p>
   </section>
 
   <SearchBar placeholder={t('search.placeholder')} lang={lang} />
 
-  <section class="mb-8" id="tag-filters">
-    <div class="flex flex-wrap gap-2">
-      <button class="tag-filter text-sm px-3 py-1.5 rounded-full bg-black text-white dark:bg-gh-blue dark:text-bg-dark cursor-pointer transition-colors" data-tag="all">{t('filter.all')}</button>
-      {allTags.map((tag) => (
-        <button class="tag-filter text-sm px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gh-surface text-gray-700 dark:text-gh-muted hover:bg-gray-200 dark:hover:bg-gh-surface transition-colors cursor-pointer" data-tag={tag}>{tag}</button>
-      ))}
-    </div>
+  <section class="tag-row" id="tag-filters">
+    <button class="tag-filter is-active" data-tag="all">{t('filter.all')}</button>
+    {allTags.map((tag) => (
+      <button class="tag-filter" data-tag={tag}>{tag}</button>
+    ))}
   </section>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
+  <section class="post-grid" id="posts-grid">
     {posts.map((post) => (
       <div class="post-item" data-tags={post.data.tags.join(',')}>
-        <PostCard title={post.data.title} description={post.data.description} date={post.data.date} tags={post.data.tags} slug={post.data.slug} lang={lang} image={post.data.image} />
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.date}
+          tags={post.data.tags}
+          slug={post.data.slug}
+          lang={lang}
+          image={post.data.image}
+        />
       </div>
     ))}
   </section>
 
-  {posts.length === 0 && <p class="text-center text-gray-500 py-12">No posts yet. Coming soon! 🚀</p>}
-  <p id="no-results" class="hidden text-center text-gray-500 py-12">No posts found.</p>
+  {posts.length === 0 && <p class="no-results">No posts yet. Coming soon! 🚀</p>}
+  <p id="no-results" class="no-results hidden">No posts found.</p>
 
-  {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} lang={lang} basePath={`/${lang}`} />}
+  {totalPages > 1 && (
+    <Pagination currentPage={currentPage} totalPages={totalPages} lang={lang} basePath={`/${lang}`} />
+  )}
 </Layout>
 
 <script is:inline>
-  const ACTIVE_CLASSES = ['bg-black', 'text-white', 'dark:bg-gh-blue', 'dark:text-bg-dark'];
-  const INACTIVE_CLASSES = ['bg-gray-100', 'dark:bg-gh-surface', 'text-gray-700', 'dark:text-gh-muted'];
-  const HOVER_CLASSES = ['hover:bg-gray-200', 'dark:hover:bg-gh-surface'];
-
   document.querySelectorAll('.tag-filter').forEach(btn => {
     btn.addEventListener('click', () => {
-      const tag = btn.dataset.tag;
-      document.querySelectorAll('.tag-filter').forEach(b => {
-        b.classList.remove(...ACTIVE_CLASSES);
-        b.classList.add(...INACTIVE_CLASSES, ...HOVER_CLASSES);
-      });
-      btn.classList.remove(...INACTIVE_CLASSES, ...HOVER_CLASSES);
-      btn.classList.add(...ACTIVE_CLASSES);
+      const allButton = document.querySelector('.tag-filter[data-tag="all"]');
+      const wasActive = btn.classList.contains('is-active');
+      const clickedTag = btn.dataset.tag;
+      const tag = clickedTag !== 'all' && wasActive ? 'all' : clickedTag;
+      const activeButton = tag === 'all' ? allButton : btn;
+
+      document.querySelectorAll('.tag-filter').forEach(b => b.classList.remove('is-active'));
+      activeButton?.classList.add('is-active');
+
       const items = document.querySelectorAll('.post-item');
       let visible = 0;
       items.forEach(item => {
-        if (tag === 'all' || item.dataset.tags.split(',').includes(tag)) { item.style.display = ''; visible++; } else { item.style.display = 'none'; }
+        if (tag === 'all' || item.dataset.tags.split(',').includes(tag)) {
+          item.style.display = '';
+          visible++;
+        } else {
+          item.style.display = 'none';
+        }
       });
+
       document.getElementById('no-results').classList.toggle('hidden', visible > 0);
     });
   });

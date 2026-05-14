@@ -35,32 +35,23 @@ const titles: Record<Lang, (tag: string, count: number) => string> = {
 ---
 
 <Layout title={`Tag: ${tag}`} lang={lang}>
-  <section>
-    <div class="mb-8">
-      <a
-        href={getLocalizedPath('/tags', lang)}
-        class="text-sm text-gray-500 dark:text-gh-muted hover:text-black dark:hover:text-text-dark transition"
-      >
-        ← {t('nav.tags')}
-      </a>
-    </div>
+  <section class="hero">
+    <div class="hero-kicker">{t('nav.tags')}</div>
+    <h1>{titles[lang](tag, posts.length)}</h1>
+    <p><a href={getLocalizedPath('/', lang)} style="color:var(--clay);text-decoration-color:var(--oat);text-underline-offset:3px">← {t('nav.home')}</a></p>
+  </section>
 
-    <h1 class="text-3xl sm:text-4xl font-bold mb-8">
-      {titles[lang](tag, posts.length)}
-    </h1>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {posts.map((post: any) => (
-        <PostCard
-          title={post.data.title}
-          description={post.data.description}
-          date={post.data.date}
-          tags={post.data.tags}
-          slug={post.data.slug}
-          lang={lang}
-          image={post.data.image}
-        />
-      ))}
-    </div>
+  <section class="post-grid">
+    {posts.map((post: any) => (
+      <PostCard
+        title={post.data.title}
+        description={post.data.description}
+        date={post.data.date}
+        tags={post.data.tags}
+        slug={post.data.slug}
+        lang={lang}
+        image={post.data.image}
+      />
+    ))}
   </section>
 </Layout>

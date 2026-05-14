@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '../i18n';
-import { useTranslations, getLocalizedPath } from '../i18n';
+import { getLocalizedPath } from '../i18n';
 
 interface Props {
   title: string;
@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { title, description, date, tags, slug, lang, image } = Astro.props;
-const t = useTranslations(lang);
 
 const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es-ES' : 'en-US', {
   year: 'numeric',
@@ -22,41 +21,30 @@ const formattedDate = date.toLocaleDateString(lang === 'pt' ? 'pt-BR' : lang ===
 });
 ---
 
-<article class="group rounded-lg border border-gray-200 dark:border-border-dark bg-white dark:bg-bg-card-dark hover:shadow-md transition-all duration-300 overflow-hidden">
-  {image && (
-    <a href={getLocalizedPath(`/${slug}`, lang)}>
-      <img
-        src={image}
-        alt={title}
-        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
-    </a>
-  )}
-  <div class="p-5">
-    <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gh-muted mb-3">
-      <time datetime={date.toISOString()}>{formattedDate}</time>
-    </div>
-    
-    <h2 class="text-xl font-semibold mb-2 group-hover:text-gray-600 dark:group-hover:text-gh-blue transition-colors">
-      <a href={getLocalizedPath(`/${slug}`, lang)} class="line-clamp-2">
-        {title}
-      </a>
-    </h2>
-    
-    <p class="text-base text-gray-600 dark:text-gh-muted mb-4 line-clamp-3">
-      {description}
-    </p>
-    
-    <div class="flex flex-wrap gap-2">
-      {tags.map((tag) => (
-        <a
-          href={getLocalizedPath(`/tags/${tag}`, lang)}
-          class="text-sm px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gh-surface text-gray-700 dark:text-gh-muted hover:bg-gray-200 dark:hover:bg-gh-surface transition-colors"
-        >
-          {tag}
-        </a>
-      ))}
+<a class="post-card" href={getLocalizedPath(`/${slug}`, lang)}>
+  <div class="post-card-art">
+    {image ? (
+      <img src={image} alt="" loading="lazy" />
+    ) : (
+      <svg viewBox="0 0 120 80" aria-hidden="true">
+        <rect class="paper" x="8" y="10" width="72" height="58" rx="5" />
+        <rect class="line" x="18" y="20" width="42" height="4" rx="2" />
+        <rect class="line" x="18" y="29" width="52" height="4" rx="2" />
+        <rect class="line" x="18" y="38" width="34" height="4" rx="2" />
+        <rect class="accent" x="18" y="50" width="22" height="6" rx="3" />
+        <circle class="olive" cx="92" cy="28" r="9" />
+        <path d="M82 50h28" stroke="var(--g300)" stroke-width="3" stroke-linecap="round" />
+        <path d="M88 59h18" stroke="var(--clay)" stroke-width="3" stroke-linecap="round" />
+      </svg>
+    )}
+  </div>
+  <div class="post-card-body">
+    <div class="post-date">{formattedDate}</div>
+    <h2>{title}</h2>
+    <p>{description}</p>
+    <div class="post-card-foot">
+      <span>{tags.slice(0, 2).join(' · ')}</span>
+      <span class="arrow">→</span>
     </div>
   </div>
-</article>
+</a>
