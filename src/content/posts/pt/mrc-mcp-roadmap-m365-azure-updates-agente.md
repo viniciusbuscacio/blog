@@ -7,6 +7,9 @@ image: /images/posts/mrc-mcp-video.jpg
 lang: pt
 slug: mrc-mcp-roadmap-m365-azure-updates-agente
 category: "IA & Ferramentas"
+translations:
+  en: mrc-mcp-roadmap-m365-azure-updates-agente
+  es: mrc-mcp-roadmap-m365-azure-updates-agente
 ---
 
 > 🎥 Este post é baseado no vídeo do canal: [Microsoft MCR MCP - Roadmap M365 + Azure Updates](https://www.youtube.com/watch?v=eianFNW_HvY) - parte 1 da série sobre os MCP servers da Microsoft.

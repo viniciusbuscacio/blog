@@ -7,6 +7,9 @@ image: /images/posts/mcp-microsoft-learn.jpg
 lang: pt
 slug: mcp-microsoft-learn-documentacao-oficial-agente
 category: "IA & Ferramentas"
+translations:
+  en: mcp-microsoft-learn-documentacao-oficial-agente
+  es: mcp-microsoft-learn-documentacao-oficial-agente
 ---
 
 > 🎥 Este post é baseado no vídeo do canal: [MCP Microsoft Learn](https://www.youtube.com/watch?v=2DdmdgImrE8) - parte 2 da série sobre os MCP servers da Microsoft.

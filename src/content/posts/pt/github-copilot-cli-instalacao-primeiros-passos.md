@@ -7,6 +7,9 @@ image: /images/posts/github-copilot-cli.jpg
 lang: pt
 slug: github-copilot-cli-instalacao-primeiros-passos
 category: "IA & Ferramentas"
+translations:
+  en: github-copilot-cli-instalacao-primeiros-passos
+  es: github-copilot-cli-instalacao-primeiros-passos
 ---
 
 > 🎥 Este post é baseado no vídeo do canal: [GitHub Copilot CLI - Instalação e primeiros passos](https://www.youtube.com/watch?v=hZhsirwfWY8)

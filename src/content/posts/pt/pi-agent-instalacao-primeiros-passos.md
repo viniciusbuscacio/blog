@@ -7,6 +7,9 @@ image: /images/posts/pi-agent.jpg
 lang: pt
 slug: pi-agent-instalacao-primeiros-passos
 category: "IA & Ferramentas"
+translations:
+  en: pi-agent-instalacao-primeiros-passos
+  es: pi-agent-instalacao-primeiros-passos
 ---
 
 > 🎥 Este post é baseado no vídeo do canal: [Pi Agent - Instalação e primeiros passos](https://www.youtube.com/watch?v=VwV2zCn5C60)
