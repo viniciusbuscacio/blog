@@ -7,6 +7,9 @@ image: /images/posts/pop-agent-desktop.png
 lang: pt
 slug: meu-proprio-ai-agent-pop-agent
 category: "IA & Ferramentas"
+translations:
+  en: meu-proprio-ai-agent-pop-agent
+  es: meu-proprio-ai-agent-pop-agent
 ---
 
 Oi, pessoal. Estou lançando meu próprio AI Agent: Pop Agent
