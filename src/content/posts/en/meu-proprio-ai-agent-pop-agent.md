@@ -16,8 +16,6 @@ Hi, everyone. I'm launching my own AI Agent: Pop Agent
 
 Here's what it looks like on Desktop/Web
 
-![Pop Agent on Desktop and Web](/images/posts/pop-agent-desktop.png)
-
 It's a small personal project that came from my desire to truly understand what happens inside an AI Agent. It started as a study project, but evolved well and eventually became my main agent.
 
 About a year and a half ago, I created my first agent in Python: a simple loop. It partially worked. I found errors, fixed them, more errors appeared, problems with tool calls, I fixed those, more errors, etc. etc. I gave up and started over more times than I can remember.
