@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PostCard from '../../components/PostCard.astro';
-import Pagination from '../../components/Pagination.astro';
 import SearchBar from '../../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n';
@@ -16,10 +15,7 @@ const allPosts = (await getCollection('posts'))
 
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 
-const POSTS_PER_PAGE = 9;
-const currentPage = Number(Astro.url.searchParams.get('page') || '1');
-const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
-const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
+const posts = allPosts;
 ---
 
 <Layout title={t('nav.home')} lang={lang} description="Blog técnico de Vinicius Buscacio — Cloud, IA, Microsoft Teams, automação">
@@ -56,9 +52,6 @@ const posts = allPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * P
   {posts.length === 0 && <p class="no-results">Nenhum post ainda. Em breve! 🚀</p>}
   <p id="no-results" class="no-results hidden">Nenhum post encontrado.</p>
 
-  {totalPages > 1 && (
-    <Pagination currentPage={currentPage} totalPages={totalPages} lang={lang} basePath={`/${lang}`} />
-  )}
 </Layout>
 
 <script is:inline>
